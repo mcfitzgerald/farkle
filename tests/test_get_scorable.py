@@ -43,6 +43,7 @@ def test_get_scorable_ones_fives():
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
 
+
 def test_get_scorable_twos_34okp():
     """Test if twos and 4ok and pair found"""
     roll = np.array([2, 2, 2, 2, 6, 6])
@@ -65,6 +66,7 @@ def test_get_scorable_twos_34okp():
     }
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
+
 
 def test_get_scorable_threes_5ok():
     """Test if 5ok (3) and a 1 found"""
@@ -89,6 +91,7 @@ def test_get_scorable_threes_5ok():
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
 
+
 def test_get_scorable_4_6_3ok():
     """Test if 3ok 4 and 6 are found"""
     roll = np.array([4, 4, 4, 6, 6, 6])
@@ -111,6 +114,7 @@ def test_get_scorable_4_6_3ok():
     }
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
+
 
 def test_get_scorable_6ok_1():
     """Test if 6ok 1 are found"""
@@ -135,6 +139,7 @@ def test_get_scorable_6ok_1():
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
 
+
 def test_get_scorable_straight():
     """Test if 6ok 1 are found"""
     roll = np.array([1, 2, 3, 4, 5, 6])
@@ -157,6 +162,7 @@ def test_get_scorable_straight():
     }
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
+
 
 def test_get_scorable_3pair():
     """Test if 3 pair is found"""
@@ -181,6 +187,7 @@ def test_get_scorable_3pair():
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
 
+
 def test_get_scorable_partial_roll_3ok_1():
     """Test if 3ok 1 is found"""
     roll = np.array([1, 1, 1])
@@ -203,6 +210,7 @@ def test_get_scorable_partial_roll_3ok_1():
     }
     actual = analyze_roll.get_scorable(roll)
     assert expected == actual
+
 
 def test_get_scorable_partial_roll_4ok_4():
     """Test if 4ok 4 pair is found"""

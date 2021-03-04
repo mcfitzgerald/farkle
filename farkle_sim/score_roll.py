@@ -1,6 +1,7 @@
 """
 Module contains functions to score an analyzed roll.
 """
+# Point dictionary. Plan to make configurable.
 p_dict = {
     "one": 100,
     "five": 50,
@@ -19,6 +20,7 @@ p_dict = {
     "triplets": 2500,
 }
 
+# Number of dice in each combo
 dice_count = {
     "three-ones": 3,
     "three-twos": 3,
@@ -76,28 +78,57 @@ def gather_combos(analyzed_roll):
     return combos
 
 
+def handle_four_and_pair(analyzed_roll):
+    """Case switching lookup to handle four and pairs containing 1 or 5"""
+    case = (analyzed_roll["one"], analyzed_roll["five"])
+    print(f"the four-and-pair case is {case}")
+
+    _lookup = {
+        (2, 0): ["five"],
+        (4, 0): ["five"],
+        (0, 2): ["one"],
+        (0, 4): ["one"],
+        (2, 4): [],
+        (4, 2): [],
+    }
+
+    return _lookup.get(case, ["one", "five"])
+
+
+def handle_three_pair(analyzed_roll):
+    """Case switching lookup to handle three pairs containing 1 or 5"""
+    case = (analyzed_roll["one"], analyzed_roll["five"])
+    print(f"the three-pair case is {case}")
+
+    _lookup = {
+        (2, 0): ["five"],
+        (0, 2): ["one"],
+        (2, 2): [],
+    }
+
+    return _lookup.get(case, ["one", "five"])
+
+
 def gather_singles(analyzed_roll):
     """
     Identify , count, and score any occuring single in a roll.
     """
 
     singles = []
+    single_keys = []
 
-    # test for 3 pairs exception
+    # test for 4 and pair exception
+    if analyzed_roll["four-and-pair"]:
+        single_keys = handle_four_and_pair(analyzed_roll)
 
+    # test for 3 pair exception
     if analyzed_roll["three-pairs"]:
-        if analyzed_roll["one"] == 2:
-            single_keys = ["five"]
-        if analyzed_roll["five"] == 2:
-            single_keys = ["one"]
-        if analyzed_roll["one"] == 2 and analyzed_roll["five"] == 2:
-            single_keys = []
-    else:
-        single_keys = ["one", "five"]
+        single_keys = handle_three_pair(analyzed_roll)
+
+    print(f"the single_keys list is {single_keys}")
 
     for i in single_keys:
         # drops if 3ok present
-        # still need to handle pairs (1,1,5,5,x,x) - see below
         if 3 > analyzed_roll[i] > 0:
             singles.append(i)
 
