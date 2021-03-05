@@ -115,7 +115,7 @@ def gather_singles(analyzed_roll):
     """
 
     singles = []
-    single_keys = []
+    single_keys = ["one", "five"]
 
     # test for 4 and pair exception
     if analyzed_roll["four-and-pair"]:
@@ -125,10 +125,13 @@ def gather_singles(analyzed_roll):
     if analyzed_roll["three-pairs"]:
         single_keys = handle_three_pair(analyzed_roll)
 
-    print(f"the single_keys list is {single_keys}")
+    #test for straight exception
+    if analyzed_roll["straight"]:
+        single_keys = []
 
     for i in single_keys:
         # drops if 3ok present
+        # handles triplets too!
         if 3 > analyzed_roll[i] > 0:
             singles.append(i)
 
