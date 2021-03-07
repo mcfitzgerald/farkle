@@ -50,10 +50,11 @@ def get_scorable(roll):
     scorable["straight"] = np.isin(straight_array, roll).all()
     scorable["three-pairs"] = (counted_roll == 2).sum() == 3
     scorable["four-and-pair"] = (counted_roll == 4).any() and (counted_roll == 2).any()
+    scorable["triplets"] = (counted_roll == 3).sum() == 2
+
     # handle four and pair with ones vs three and one 
     if scorable["four-and-pair"]:
         scorable["three-and-one"] = False
-    scorable["triplets"] = (counted_roll == 3).sum() == 2
     
 
     return scorable
