@@ -12,6 +12,7 @@ p_dict = {
     "three-fives": 500,
     "three-sixes": 600,
     "four-of-a-kind": 1000,
+    "three-and-one": 1100,
     "five-of-a-kind": 2000,
     "six-of-a-kind": 3000,
     "straight": 1500,
@@ -29,6 +30,7 @@ dice_count = {
     "three-fives": 3,
     "three-sixes": 3,
     "four-of-a-kind": 4,
+    "three-and-one": 4,
     "five-of-a-kind": 5,
     "six-of-a-kind": 6,
     "straight": 6,
@@ -51,7 +53,7 @@ def gather_combos(analyzed_roll):
         "three-sixes",
     ]
 
-    hi_combo_keys = ["four-of-a-kind", "five-of-a-kind", "six-of-a-kind"]
+    hi_combo_keys = ["four-of-a-kind", "three-and-one", "five-of-a-kind"]
 
     full_combo_keys = [
         "six-of-a-kind",
@@ -125,9 +127,13 @@ def gather_singles(analyzed_roll):
     if analyzed_roll["three-pairs"]:
         single_keys = handle_three_pair(analyzed_roll)
 
-    #test for straight exception
+    # test for straight exception
     if analyzed_roll["straight"]:
         single_keys = []
+
+    # test for 3 and 1 exception
+    if analyzed_roll["three-and-one"]:
+        single_keys = ["five"]
 
     for i in single_keys:
         # drops if 3ok present

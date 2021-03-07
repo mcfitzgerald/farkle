@@ -4,6 +4,9 @@ or combinations of dice in a roll can be scored
 """
 import numpy as np
 
+# defined for comparison
+straight_array = np.array([1, 2, 3, 4, 5, 6])
+
 
 def count_roll(roll):
     """
@@ -40,14 +43,17 @@ def get_scorable(roll):
         scorable[tok_keys[i]] = tok_array[i]
 
     # combos
-    straight_array = np.array([1, 2, 3, 4, 5, 6])  # defined for comparison
-
-    scorable["four-of-a-kind"] = (counted_roll == 4).any()
+    scorable["four-of-a-kind"] = (counted_roll[1:-1] == 4).any() # excludes one position
+    scorable["three-and-one"] = (counted_roll[0] == 4) # special case count 4ok ones as 3 and 1 for 1100 pts.
     scorable["five-of-a-kind"] = (counted_roll == 5).any()
     scorable["six-of-a-kind"] = (counted_roll == 6).any()
     scorable["straight"] = np.isin(straight_array, roll).all()
     scorable["three-pairs"] = (counted_roll == 2).sum() == 3
     scorable["four-and-pair"] = (counted_roll == 4).any() and (counted_roll == 2).any()
+    # handle four and pair with ones vs three and one 
+    if scorable["four-and-pair"]:
+        scorable["three-and-one"] = False
     scorable["triplets"] = (counted_roll == 3).sum() == 2
+    
 
     return scorable
