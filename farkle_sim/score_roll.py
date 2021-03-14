@@ -83,7 +83,6 @@ def gather_combos(analyzed_roll):
 def handle_four_and_pair(analyzed_roll):
     """Case switching lookup to handle four and pairs containing 1 or 5"""
     case = (analyzed_roll["one"], analyzed_roll["five"])
-    print(f"the four-and-pair case is {case}")
 
     _lookup = {
         (2, 0): ["five"],
@@ -100,8 +99,6 @@ def handle_four_and_pair(analyzed_roll):
 def handle_three_pair(analyzed_roll):
     """Case switching lookup to handle three pairs containing 1 or 5"""
     case = (analyzed_roll["one"], analyzed_roll["five"])
-    print(f"the three-pair case is {case}")
-
     _lookup = {
         (2, 0): ["five"],
         (0, 2): ["one"],

@@ -43,7 +43,7 @@ def get_scorable(roll):
         scorable[tok_keys[i]] = tok_array[i]
 
     # combos
-    scorable["four-of-a-kind"] = (counted_roll[1:-1] == 4).any() # excludes one position
+    scorable["four-of-a-kind"] = (counted_roll[1:] == 4).any() # excludes one position
     scorable["three-and-one"] = (counted_roll[0] == 4) # special case count 4ok ones as 3 and 1 for 1100 pts.
     scorable["five-of-a-kind"] = (counted_roll == 5).any()
     scorable["six-of-a-kind"] = (counted_roll == 6).any()
