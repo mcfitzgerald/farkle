@@ -163,3 +163,17 @@ def count_gathered(analyzed_roll):
         comb_score.append((i, p_dict[i], dice_count[i]))
 
     return [sing_score, comb_score]
+
+def score_hand(hand):
+    """
+    Returns score of a roll (0 if farkle) and number of remaining dice (6 if hot)
+    """
+    score = 0
+    num_dice = 6
+    for i in hand:
+        for j in i:
+            score += j[1]
+            num_dice -= j[2]
+            if num_dice == 0:
+                num_dice = 6
+    return score, num_dice
